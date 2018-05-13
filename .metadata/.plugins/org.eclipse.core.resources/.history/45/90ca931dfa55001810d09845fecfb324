@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Servlet</display-name>
+   
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 服务器拦截 -->
+<security-constraint>
+	<web-resource-collection>
+	    <!-- 限制访问名称 -->
+		<web-resource-name>RegisteredUsers</web-resource-name>
+		<!-- 限制访问路径 -->
+		<url-pattern>/jsp/admin.jsp</url-pattern>
+	</web-resource-collection>
+	<auth-constraint>
+	    <!-- 定义可以访问的角色 -->
+		<role-name>manager-gui</role-name>
+	</auth-constraint>
+</security-constraint>
+  
+<login-config>
+	<auth-method>BASIC</auth-method>
+	<realm-name>Registered Users</realm-name>
+</login-config>  
+
+<security-role>
+  	<role-name>manager-gui</role-name>
+</security-role>
+  
+  
+  <!-- 过滤器配置先配置先执行 -->
+  <filter>
+  	<filter-name>filter2</filter-name>
+  	<filter-class>Filter.Demo2</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>filter2</filter-name>
+  	<url-pattern>/demo2</url-pattern>
+  </filter-mapping>
+  
+  
+  <filter>
+  	<filter-name>filter1</filter-name>
+  	<filter-class>Filter.Demo1</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>filter1</filter-name>
+  	<url-pattern>/demo1</url-pattern>
+  </filter-mapping>
+
+  
+<!-- 监听器 配置 -->
+<!--   <listener>
+  	<listener-class>Listener.ServletContextListenerDemo</listener-class>
+  </listener>
+   <listener>
+  	<listener-class>Listener.ServletContextAttributeListenerDemo</listener-class>
+  </listener> -->
+    
+  <listener>
+  	<listener-class>Listener.OnlineUserList</listener-class>
+  </listener>
+  
+  
+  
+   <servlet>
+        <servlet-name>demo1</servlet-name>
+        <servlet-class>Servlet01.Demo1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>demo2</servlet-name>
+        <servlet-class>Servlet01.Demo2</servlet-class>
+        <init-param>
+        	<param-name>csh</param-name>
+        	<param-value>初始化内容</param-value>
+        </init-param>
+    </servlet>
+     <servlet>
+        <servlet-name>demo3</servlet-name>
+        <servlet-class>Servlet01.Demo3</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>demo2</servlet-name>
+        <url-pattern>/demo2</url-pattern>
+    </servlet-mapping> 
+    <servlet-mapping>
+        <servlet-name>demo1</servlet-name>
+        <url-pattern>/demo1</url-pattern>
+    </servlet-mapping> 
+       <servlet-mapping>
+        <servlet-name>demo3</servlet-name>
+        <url-pattern>/demo3</url-pattern>
+    </servlet-mapping> 
+    
+     
+  
+ 
+</web-app>
